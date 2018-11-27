@@ -5,15 +5,15 @@
 	"homepage": "https://github.com/aalfiann/filebase",
 	"type": "package",
 	"authors": [
-        {
-            "name": "Timothy Marois",
-            "email": "timothymarois@gmail.com"
+		{
+			"name": "Timothy Marois",
+			"email": "timothymarois@gmail.com"
 		},
 		{
 			"name": "M ABD AZIZ ALFIAN",
-            "email": "aalfiann@gmail.com"
+			"email": "aalfiann@gmail.com"
 		}
-    ],
+	],
 	"require": {
 		"php": ">=5.6"
 	},
@@ -28,5 +28,5 @@
 		}
 	},
 	"minimum-stability": "dev",
-    "prefer-stable": true
+	"prefer-stable": true
 }
