@@ -1,5 +1,5 @@
 {
-	"description": "A Simple but Powerful Flat File Database Storage with Replicator.",
+	"description": "A Simple but Powerful Flat File Database Storage.",
 	"keywords": ["filebase", "key-value","file-files", "flat", "file", "database", "document", "flat-file", "serverless"],
 	"name": "aalfiann/filebase",
 	"homepage": "https://github.com/aalfiann/filebase",
