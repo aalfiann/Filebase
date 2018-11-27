@@ -6,7 +6,7 @@
 
 This is forked from [filebase/Filebase](https://github.com/filebase/Filebase), I don't contribute to original project, because I have different plans.  
 
-===
+---
 
 A Simple but Powerful Flat File Database Storage. No need for MySQL or an expensive SQL server, in fact, you just need your current site or application setup. All database entries are stored in files ([formatted](https://github.com/filebase/Filebase#2-formatting) the way you like).
 
