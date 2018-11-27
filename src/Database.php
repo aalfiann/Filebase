@@ -93,7 +93,7 @@ class Database
         $format = $this->config->format;
 
         $file_extension = $format::getFileExtension();
-        $file_location  = $this->config->dir.'/';
+        $file_location  = $this->config->dir.DIRECTORY_SEPARATOR;
 
         $all_items = Filesystem::getAllFiles($file_location, $file_extension);
         if ($include_documents==true)
@@ -165,7 +165,7 @@ class Database
     public function has($id)
     {
         $format = $this->config->format;
-        $record = Filesystem::read( $this->config->dir.'/'.Filesystem::validateName($id, $this->config->safe_filename).'.'.$format::getFileExtension() );
+        $record = Filesystem::read( $this->config->dir.DIRECTORY_SEPARATOR.Filesystem::validateName($id, $this->config->safe_filename).'.'.$format::getFileExtension() );
 
         return $record ? true : false;
     }
@@ -252,7 +252,7 @@ class Database
         $format         = $this->config->format;
         $id             = $document->getId();
         $file_extension = $format::getFileExtension();
-        $file_location  = $this->config->dir.'/'.Filesystem::validateName($id, $this->config->safe_filename).'.'.$file_extension;
+        $file_location  = $this->config->dir.DIRECTORY_SEPARATOR.Filesystem::validateName($id, $this->config->safe_filename).'.'.$file_extension;
         $created        = $document->createdAt(false);
 
         if (isset($wdata) && $wdata !== '')
@@ -321,7 +321,7 @@ class Database
         $format = $this->config->format;
 
         $file = Filesystem::read(
-            $this->config->dir . '/'
+            $this->config->dir . DIRECTORY_SEPARATOR
             . Filesystem::validateName($name, $this->config->safe_filename) 
             . '.' . $format::getFileExtension()
         );
@@ -352,7 +352,7 @@ class Database
 
         $format = $this->config->format;
 
-        $d = Filesystem::delete($this->config->dir.'/'.Filesystem::validateName($document->getId(), $this->config->safe_filename).'.'.$format::getFileExtension());
+        $d = Filesystem::delete($this->config->dir.DIRECTORY_SEPARATOR.Filesystem::validateName($document->getId(), $this->config->safe_filename).'.'.$format::getFileExtension());
 
         $this->flushCache();
 
@@ -399,7 +399,7 @@ class Database
             $documents = $this->findAll(false);
             foreach($documents as $document)
             {
-                Filesystem::delete($this->config->dir.'/'.$document.'.'.$format::getFileExtension());
+                Filesystem::delete($this->config->dir.DIRECTORY_SEPARATOR.$document.'.'.$format::getFileExtension());
             }
 
             if ($this->count() === 0)

@@ -73,7 +73,7 @@ class Backup
     */
     public function create()
     {
-        $backupFile = $this->backupLocation.'/'.time().'.zip';
+        $backupFile = $this->backupLocation.DIRECTORY_SEPARATOR.time().'.zip';
 
         if ($results = $this->zip($this->config->dir, $backupFile))
         {
@@ -101,7 +101,7 @@ class Backup
         foreach($files as $file)
         {
             $basename = str_replace('.zip','',basename($file));
-            $backups[$basename] = $this->backupLocation.'/'.$basename.'.zip';
+            $backups[$basename] = $this->backupLocation.DIRECTORY_SEPARATOR.$basename.'.zip';
         }
 
         krsort($backups);
@@ -211,11 +211,11 @@ class Backup
 
                            if (is_dir($file))
                            {
-                               $zip->addEmptyDir(str_replace($source . '/', '', $file . '/'));
+                               $zip->addEmptyDir(str_replace($source . DIRECTORY_SEPARATOR, '', $file . DIRECTORY_SEPARATOR));
                            }
                            else if (is_file($file))
                            {
-                               $zip->addFromString(str_replace($source . '/', '', $file), file_get_contents($file));
+                               $zip->addFromString(str_replace($source . DIRECTORY_SEPARATOR, '', $file), file_get_contents($file));
                            }
                        }
 
