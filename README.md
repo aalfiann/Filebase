@@ -4,7 +4,7 @@
 [![Total Downloads](https://poser.pugx.org/aalfiann/filebase/downloads)](https://packagist.org/packages/aalfiann/filebase)
 [![License](https://poser.pugx.org/aalfiann/filebase/license)](https://github.com/aalfiann/filebase/blob/HEAD/LICENSE.md)
 
-This is forked from [filebase/Filebase](https://github.com/filebase/Filebase) and based from core version `1.0.20`, I don't contribute to original project, because the original author is too slow to release the security patch also I have different design plans and maybe I will refactor the source in the future release.  
+This is forked from [filebase/Filebase](https://github.com/filebase/Filebase) and based from core version `1.0.20`, I don't contribute to original project, because the original author is too slow to release the update for security patch also I have different design plans and maybe I will refactor the source in the future release.  
 
 ---
 
