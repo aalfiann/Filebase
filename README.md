@@ -94,7 +94,7 @@ Usage Example (all options)
 $db = new aalfiann\Filebase\Database([
     'dir'            => 'path/to/database/dir',
     'backupLocation' => 'path/to/database/backup/dir',
-    'format'         => \Filebase\Format\Json::class,
+    'format'         => aalfiann\Filebase\Format\Json::class,
     'cache'          => true,
     'cache_expires'  => 1800,
     'pretty'         => true,
@@ -113,7 +113,7 @@ $db = new aalfiann\Filebase\Database([
 |---				|---		|---			         	|---														|
 |`dir`				|string		|current directory          |The directory where the database files are stored. 	    |
 |`backupLocation`   |string		|current directory (`/backups`)         |The directory where the backup zip files will be stored. 	    |
-|`format`			|object		|`\Filebase\Format\Json`   |The format class used to encode/decode data				|
+|`format`			|object		|`aalfiann\Filebase\Format\Json`   |The format class used to encode/decode data				|
 |`validate`			|array		|   |Check [Validation Rules](https://github.com/aalfiann/Filebase#6-validation-optional) for more details |
 |`cache`			|bool		|true   |Stores [query](https://github.com/aalfiann/Filebase#8-queries) results into cache for faster loading.				|
 |`cache_expire`		|int		|1800   |How long caching will last (in seconds)	|
@@ -126,11 +126,11 @@ $db = new aalfiann\Filebase\Database([
 
 Format Class is what defines the encoding and decoding of data within your database files.
 
-You can write your own or change the existing format class in the config. The methods in the class must be `static` and the class must implement `\Filebase\Format\FormatInterface`
+You can write your own or change the existing format class in the config. The methods in the class must be `static` and the class must implement `aalfiann\Filebase\Format\FormatInterface`
 
 The Default Format Class: `JSON`
 ```php
-\Filebase\Format\Json::class
+aalfiann\Filebase\Format\Json::class
 ```
 
 
