@@ -1,6 +1,6 @@
 # Filebase
 
-[![Version](https://img.shields.io/badge/stable-1.0.1-green.svg)](https://github.com/aalfiann/filebase)
+[![Version](https://img.shields.io/badge/stable-1.0.2-green.svg)](https://github.com/aalfiann/filebase)
 [![Total Downloads](https://poser.pugx.org/aalfiann/filebase/downloads)](https://packagist.org/packages/aalfiann/filebase)
 [![License](https://poser.pugx.org/aalfiann/filebase/license)](https://github.com/aalfiann/filebase/blob/HEAD/LICENSE.md)
 
@@ -46,7 +46,7 @@ If you do not want to use composer, download the files, and include it within yo
 
 ```php
 // setting the access and configration to your database
-$database = new aalfiann\Filebase\Database([
+$database = new \Filebase\Database([
     'dir' => 'path/to/database/dir'
 ]);
 
@@ -91,10 +91,10 @@ The config is *required* when defining your database. The options are *optional*
 Usage Example (all options)
 
 ```php
-$db = new aalfiann\Filebase\Database([
+$db = new \Filebase\Database([
     'dir'            => 'path/to/database/dir',
     'backupLocation' => 'path/to/database/backup/dir',
-    'format'         => aalfiann\Filebase\Format\Json::class,
+    'format'         => \Filebase\Format\Json::class,
     'cache'          => true,
     'cache_expires'  => 1800,
     'pretty'         => true,
@@ -113,7 +113,7 @@ $db = new aalfiann\Filebase\Database([
 |---				|---		|---			         	|---														|
 |`dir`				|string		|current directory          |The directory where the database files are stored. 	    |
 |`backupLocation`   |string		|current directory (`/backups`)         |The directory where the backup zip files will be stored. 	    |
-|`format`			|object		|`aalfiann\Filebase\Format\Json`   |The format class used to encode/decode data				|
+|`format`			|object		|`\Filebase\Format\Json`   |The format class used to encode/decode data				|
 |`validate`			|array		|   |Check [Validation Rules](https://github.com/aalfiann/Filebase#6-validation-optional) for more details |
 |`cache`			|bool		|true   |Stores [query](https://github.com/aalfiann/Filebase#8-queries) results into cache for faster loading.				|
 |`cache_expire`		|int		|1800   |How long caching will last (in seconds)	|
@@ -126,11 +126,11 @@ $db = new aalfiann\Filebase\Database([
 
 Format Class is what defines the encoding and decoding of data within your database files.
 
-You can write your own or change the existing format class in the config. The methods in the class must be `static` and the class must implement `aalfiann\Filebase\Format\FormatInterface`
+You can write your own or change the existing format class in the config. The methods in the class must be `static` and the class must implement `\Filebase\Format\FormatInterface`
 
 The Default Format Class: `JSON`
 ```php
-aalfiann\Filebase\Format\Json::class
+\Filebase\Format\Json::class
 ```
 
 
@@ -215,7 +215,7 @@ $item->delete();
 ## (5) Database Methods
 
 ```php
-$db = new aalfiann\Filebase\Database($config);
+$db = new \Filebase\Database($config);
 ```
 
 Here is a list of methods you can use on the database class.
@@ -236,7 +236,7 @@ Here is a list of methods you can use on the database class.
 Examples
 
 ```php
-$users = new aalfiann\Filebase\Database([
+$users = new \Filebase\Database([
     'dir' => '/storage/users',
 ]);
 
@@ -270,7 +270,7 @@ When invoking `save()` method, the document will be checked for validation rules
 These rules MUST pass in order for the document to save.
 
 ```php
-$db = new aalfiann\Filebase\Database([
+$db = new \Filebase\Database([
     'dir' => '/path/to/database/dir',
     'validate' => [
         'name'   => [
@@ -457,7 +457,7 @@ These methods can be used when invoking `backup()` on your `Database`.
 
 ```php
 // invoke your database
-$database = new aalfiann\Filebase\Database([
+$database = new \Filebase\Database([
     'dir' => '/storage/users',
     'backupLocation' => '/storage/backup',
 ]);

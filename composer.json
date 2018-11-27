@@ -24,7 +24,7 @@
 	"license": "MIT",
 	"autoload": {
 		"psr-4": {
-			"aalfiann\\Filebase\\": "src/"
+			"Filebase\\": "src/"
 		}
 	},
 	"minimum-stability": "dev",

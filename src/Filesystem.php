@@ -119,7 +119,8 @@ class Filesystem
     public static function getAllFiles($path = '',$ext = 'json')
     {
         $files = [];
-        $_files = glob($path.'*.'.$ext);
+        $filesystemIterator = new \FilesystemIterator($path, \FilesystemIterator::SKIP_DOTS);
+        $_files = new \RegexIterator($filesystemIterator, "/\\.{$ext}$/");
         foreach($_files as $file)
         {
             $files[] = str_replace('.'.$ext,'',basename($file));
