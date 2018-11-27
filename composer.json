@@ -1,0 +1,32 @@
+{
+	"description": "A Simple but Powerful Flat File Database Storage with Replicator.",
+	"keywords": ["filebase", "key-value","file-files", "flat", "file", "database", "document", "flat-file", "serverless"],
+	"name": "aalfiann/filebase",
+	"homepage": "https://github.com/aalfiann/filebase",
+	"type": "package",
+	"authors": [
+        {
+            "name": "Timothy Marois",
+            "email": "timothymarois@gmail.com"
+		},
+		{
+			"name": "M ABD AZIZ ALFIAN",
+            "email": "aalfiann@gmail.com"
+		}
+    ],
+	"require": {
+		"php": ">=5.6"
+	},
+	"require-dev": {
+		"satooshi/php-coveralls": "^2.0",
+		"phpunit/phpunit": "5.*"
+	},
+	"license": "MIT",
+	"autoload": {
+		"psr-4": {
+			"aalfiann\\Filebase\\": "src/"
+		}
+	},
+	"minimum-stability": "dev",
+    "prefer-stable": true
+}
