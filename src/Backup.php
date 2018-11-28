@@ -1,5 +1,6 @@
-<?php  namespace Filebase;
-
+<?php
+namespace Filebase;
+use \Filebase\Helper\Scanner;
 
 class Backup
 {
@@ -97,11 +98,13 @@ class Backup
     public function find()
     {
         $backups = [];
-        $files = glob(realpath($this->backupLocation)."/*.zip");
+        $ext = 'zip';
+        $path = realpath($this->backupLocation).DIRECTORY_SEPARATOR;
+        $files = Scanner::fileSearch($path,$ext);
         foreach($files as $file)
         {
-            $basename = str_replace('.zip','',basename($file));
-            $backups[$basename] = $this->backupLocation.DIRECTORY_SEPARATOR.$basename.'.zip';
+            $basename = str_replace('.'.$ext,'',basename($file));
+            $backups[$basename] = $this->backupLocation.DIRECTORY_SEPARATOR.$basename.'.'.$ext;
         }
 
         krsort($backups);
@@ -121,7 +124,10 @@ class Backup
     */
     public function clean()
     {
-        return array_map('unlink', glob(realpath($this->backupLocation)."/*.zip"));
+        $ext = 'zip';
+        $path = realpath($this->backupLocation).DIRECTORY_SEPARATOR;
+        $files = Scanner::fileSearch($path,$ext);
+        return array_map('unlink', $files);
     }
 
 

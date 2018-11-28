@@ -1,5 +1,6 @@
-<?php  namespace Filebase;
-
+<?php
+namespace Filebase;
+use \Filebase\Helper\Scanner;
 
 class Filesystem
 {
@@ -119,8 +120,7 @@ class Filesystem
     public static function getAllFiles($path = '',$ext = 'json')
     {
         $files = [];
-        $filesystemIterator = new \FilesystemIterator($path, \FilesystemIterator::SKIP_DOTS);
-        $_files = new \RegexIterator($filesystemIterator, "/\\.{$ext}$/");
+        $_files = Scanner::fileSearch($path,$ext);
         foreach($_files as $file)
         {
             $files[] = str_replace('.'.$ext,'',basename($file));
