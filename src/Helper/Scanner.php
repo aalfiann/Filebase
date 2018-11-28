@@ -98,11 +98,6 @@ class Scanner {
      * @return array RecursiveIteratorIterator
      */
     public static function recursiveCallbackIterator($dir,$ext='php',$extIsRegex=false){
-        if($extIsRegex) {
-            $pattern = $ext;
-        } else {
-            $pattern = '/\.'.$ext.'$/';
-        }
         $dirs = new \RecursiveDirectoryIterator($dir);
         $filter = new \RecursiveCallbackFilterIterator($dirs, function($current, $key, $iterator) {
             if ($iterator->hasChildren()) return true;
