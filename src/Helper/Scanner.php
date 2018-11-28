@@ -4,15 +4,28 @@ namespace Filebase\Helper;
 class Scanner {
 
     /**
+     * Last char checker (alternative to preg_match)
+     * 
+     * @param match = is the text to match
+     * @param string = is the source text
+     * 
+     * @return bool 
+     */
+    public static function isMatchLast($match,$string){
+        if (substr($string, (-1 * abs(strlen($match)))) == $match) return true;
+        return false;
+    }
+
+    /**
      * fileSearch is using opendir (very fast)
      * 
      * @param dir = is the full path of directory
-     * @param ext = is the extension of file. Default is php extension.
+     * @param ext = is the extension of file. Default is php extension. Example Regex: $pattern = "/\\.{$ext}$/"; or $pattern="/\.router.php$/";
+     * @param extIsRegex = if set to true then the $ext variable will be executed as regex way. Default is false.
      * 
      * @return array
      */
-    public static function fileSearch($dir, $ext='php') {
-        $pattern = "/\\.{$ext}$/";
+    public static function fileSearch($dir, $ext='php',$extIsRegex=false) {
         $files = [];
         $fh = opendir($dir);
 
@@ -23,10 +36,13 @@ class Scanner {
             $filepath = $dir . DIRECTORY_SEPARATOR . $file;
 
             if (is_dir($filepath))
-                $files = array_merge($files, self::fileSearch($filepath, $pattern));
+                $files = array_merge($files, self::fileSearch($filepath, $ext));
             else {
-                if(preg_match($pattern, $file))
-                    array_push($files, $filepath);
+                if($extIsRegex){
+                    if(preg_match($ext, $file)) array_push($files, $filepath);
+                } else {
+                    if(self::isMatchLast($ext,$file)) array_push($files, $filepath);
+                }
             }
         }
         closedir($fh);
@@ -37,58 +53,64 @@ class Scanner {
      * filesystemIterator
      * 
      * @param dir = is the full path of directory
-     * @param ext = is the extension of file. Default is php extension.
+     * @param ext = is the extension of file. Default is php extension. Example: $pattern = "/\\.{$ext}$/"; or $pattern="/\.router.php$/";
+     * @param extIsRegex = if set to true then the $ext variable will be executed as regex way. Default is false.
      * 
      * @return array RegexIterator
      */
-    public static function filesystemIterator($dir,$ext='php'){
+    public static function filesystemIterator($dir,$ext='php',$extIsRegex=false){
+        if($extIsRegex) {
+            $pattern = $ext;
+        } else {
+            $pattern = '/\.'.$ext.'$/';
+        }
         $filesystemIterator = new \FilesystemIterator($dir, \FilesystemIterator::SKIP_DOTS);
-        return new \RegexIterator($filesystemIterator, "/\\.{$ext}$/");
-    }
-
-    /**
-     * regexFileIterator
-     * 
-     * @param dir = is the full path of directory
-     * @param ext = is the extension of file. Default is php extension.
-     * 
-     * @return array RegexIterator
-     */
-    public static function regexFileIterator($dir,$ext='php'){
-        $dirs = new \RecursiveDirectoryIterator($dir);
-        $iterator = new \RecursiveIteratorIterator($dirs);
-        return new \RegexIterator($iterator, "/\\.{$ext}$/");
+        return new \RegexIterator($filesystemIterator, $pattern);
     }
 
     /**
      * regexIterator
      * 
      * @param dir = is the full path of directory
-     * @param ext = is the extension of file. Default is php extension.
+     * @param ext = is the extension of file. Default is php extension. Example Regex: $pattern = "/\\.{$ext}$/"; or $pattern="/\.router.php$/";
+     * @param extIsRegex = if set to true then the $ext variable will be executed as regex way. Default is false.
      * 
      * @return array RegexIterator
      */
-    public static function regexIterator($dir,$rgx="/\\.{php}$/"){
+    public static function regexIterator($dir,$ext='php',$extIsRegex=false){
+        if($extIsRegex) {
+            $pattern = $ext;
+        } else {
+            $pattern = '/\.'.$ext.'$/';
+        }
         $dirs = new \RecursiveDirectoryIterator($dir);
         $iterator = new \RecursiveIteratorIterator($dirs);
-        return new \RegexIterator($iterator, $rgx);
+        return new \RegexIterator($iterator, $pattern);
     }
 
     /**
      * recursiveCallbackIterator
      * 
      * @param dir = is the full path of directory
-     * @param ext = is the extension of file. Default is php extension.
+     * @param ext = is the extension of file. Default is php extension. Example Regex: $pattern = "/\\.{$ext}$/"; or $pattern="/\.router.php$/";
+     * @param extIsRegex = if set to true then the $ext variable will be executed as regex way. Default is false.
      * 
      * @return array RecursiveIteratorIterator
      */
-    public static function recursiveCallbackIterator($dir,$ext='php'){
+    public static function recursiveCallbackIterator($dir,$ext='php',$extIsRegex=false){
+        if($extIsRegex) {
+            $pattern = $ext;
+        } else {
+            $pattern = '/\.'.$ext.'$/';
+        }
         $dirs = new \RecursiveDirectoryIterator($dir);
         $filter = new \RecursiveCallbackFilterIterator($dirs, function($current, $key, $iterator) {
-            if ($iterator->hasChildren())
-                return true;
-            if($current->isFile() && preg_match("/\\.{$ext}$/", $current->getFilename() ) )
-                return true;
+            if ($iterator->hasChildren()) return true;
+            if($extIsRegex){
+                if($current->isFile() && preg_match($pattern, $current->getFilename())) return true;
+            } else {
+                if($current->isFile() && self::isMatchLast($ext, $current->getFilename())) return true;
+            }
         });
         return new \RecursiveIteratorIterator($filter);
     }
