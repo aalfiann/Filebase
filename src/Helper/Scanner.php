@@ -109,7 +109,7 @@ class Scanner {
     public static function recursiveGlob($pattern, $flags = 0){
         $files = glob($pattern, $flags);
         foreach (glob(dirname($pattern).DIRECTORY_SEPARATOR.'*', GLOB_ONLYDIR|GLOB_NOSORT) as $dir){
-            $files = array_merge($files, self::recursiveGlob($dir.'/'.basename($pattern), $flags));
+            $files = array_merge($files, self::recursiveGlob($dir.DIRECTORY_SEPARATOR.basename($pattern), $flags));
         }
         return $files;
     }
