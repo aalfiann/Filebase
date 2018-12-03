@@ -17,28 +17,12 @@ class Scanner {
     public static function fileSearch($dir, $ext='php',$extIsRegex=false,$excludedir='__cache') {
         $files = [];
         $fh = opendir($dir);
-        if(is_string($excludedir)){
-            if (!StringUtils::isMatchAny($excludedir,$dir)){
-                while (($file = readdir($fh)) !== false) {
-                    if($file == '.' || $file == '..') continue;
-                    $filepath = $dir . DIRECTORY_SEPARATOR . $file;
-                    if (is_dir($filepath))
-                        $files = array_merge($files, self::fileSearch($filepath, $ext, $extIsRegex, $excludedir));
-                    else {
-                        if($extIsRegex){
-                            if(preg_match($ext, $file)) array_push($files, $filepath);
-                        } else {
-                            if(StringUtils::isMatchLast($ext,$file)) array_push($files, $filepath);
-                        }
-                    }
-                }
-            }
-        } else {
-            foreach($excludedir as $dirs){
-                if (!StringUtils::isMatchAny($dirs,$dir)){
+        if($excludedir !== ''){
+            if(is_string($excludedir)){
+                if (!StringUtils::isMatchAny($excludedir,$dir)){
                     while (($file = readdir($fh)) !== false) {
                         if($file == '.' || $file == '..') continue;
-                        $filepath = $dirs . DIRECTORY_SEPARATOR . $file;
+                        $filepath = $dir . DIRECTORY_SEPARATOR . $file;
                         if (is_dir($filepath))
                             $files = array_merge($files, self::fileSearch($filepath, $ext, $extIsRegex, $excludedir));
                         else {
@@ -48,7 +32,39 @@ class Scanner {
                                 if(StringUtils::isMatchLast($ext,$file)) array_push($files, $filepath);
                             }
                         }
-                    }   
+                    }
+                }
+            } else {
+                foreach($excludedir as $dirs){
+                    if (!StringUtils::isMatchAny($dirs,$dir)){
+                        while (($file = readdir($fh)) !== false) {
+                            if($file == '.' || $file == '..') continue;
+                            $filepath = $dirs . DIRECTORY_SEPARATOR . $file;
+                            if (is_dir($filepath))
+                                $files = array_merge($files, self::fileSearch($filepath, $ext, $extIsRegex, $excludedir));
+                            else {
+                                if($extIsRegex){
+                                    if(preg_match($ext, $file)) array_push($files, $filepath);
+                                } else {
+                                    if(StringUtils::isMatchLast($ext,$file)) array_push($files, $filepath);
+                                }
+                            }
+                        }   
+                    }
+                }
+            }
+        } else {
+            while (($file = readdir($fh)) !== false) {
+                if($file == '.' || $file == '..') continue;
+                $filepath = $dir . DIRECTORY_SEPARATOR . $file;
+                if (is_dir($filepath))
+                    $files = array_merge($files, self::fileSearch($filepath, $ext, $extIsRegex, $excludedir));
+                else {
+                    if($extIsRegex){
+                        if(preg_match($ext, $file)) array_push($files, $filepath);
+                    } else {
+                        if(StringUtils::isMatchLast($ext,$file)) array_push($files, $filepath);
+                    }
                 }
             }
         }
