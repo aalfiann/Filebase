@@ -12,16 +12,15 @@ class Filesystem
      */
     public static function read($path)
     {
-        if(!file_exists($path))
-        {
-            return false;
+        if(is_file($path)) {
+            $contents = '';
+            $file = fopen($path, 'r');
+            $size = filesize($path);
+            if($size > 0) $contents = fread($file, $size);
+            fclose($file);
+            return $contents;
         }
-
-        $file = fopen($path, 'r');
-        $contents = fread($file, filesize($path));
-        fclose($file);
-
-        return $contents;
+        return false;
     }
 
 
@@ -67,11 +66,8 @@ class Filesystem
      */
     public static function delete($path)
     {
-        if (!file_exists($path)) {
-            return true;
-        }
-
-        return unlink($path);
+        if (is_file($path)) return unlink($path);
+        return true;
     }
 
 
