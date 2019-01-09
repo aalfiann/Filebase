@@ -1,6 +1,6 @@
 # Filebase
 
-[![Version](https://img.shields.io/badge/stable-1.0.10-green.svg)](https://github.com/aalfiann/filebase)
+[![Version](https://img.shields.io/badge/stable-1.0.11-green.svg)](https://github.com/aalfiann/filebase)
 [![Total Downloads](https://poser.pugx.org/aalfiann/filebase/downloads)](https://packagist.org/packages/aalfiann/filebase)
 [![License](https://poser.pugx.org/aalfiann/filebase/license)](https://github.com/aalfiann/filebase/blob/HEAD/LICENSE.md)
 
@@ -38,7 +38,7 @@ Filebase is simple by design, but has enough features for the more advanced.
 
 Use [Composer](http://getcomposer.org/) to install package.
 
-Run `composer require aalfiann/Filebase`
+Run `composer require aalfiann/Filebase:^1.0`
 
 If you do not want to use composer, download the files, and include it within your application, it does not have any dependencies, you will just need to keep it updated with any future releases.
 
@@ -131,6 +131,11 @@ You can write your own or change the existing format class in the config. The me
 The Default Format Class: `JSON`
 ```php
 \Filebase\Format\Json::class
+```
+
+Additional Format Classes: `YAML`
+```php
+\Filebase\Format\Yaml::class
 ```
 
 
