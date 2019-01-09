@@ -1,6 +1,6 @@
 # Filebase
 
-[![Version](https://img.shields.io/badge/stable-1.0.11-green.svg)](https://github.com/aalfiann/filebase)
+[![Version](https://img.shields.io/badge/stable-1.0.12-green.svg)](https://github.com/aalfiann/filebase)
 [![Total Downloads](https://poser.pugx.org/aalfiann/filebase/downloads)](https://packagist.org/packages/aalfiann/filebase)
 [![License](https://poser.pugx.org/aalfiann/filebase/license)](https://github.com/aalfiann/filebase/blob/HEAD/LICENSE.md)
 
@@ -420,7 +420,7 @@ The below **methods execute the query** and return results *(do not try to use t
 |`first()`              | Returns only the first document in results. |
 |`last()`               | Returns only the last document in results. |
 |`results()`            | This will return all the documents found and their data as an array. Passing the argument of `false` will be the same as `resultDocuments()` (returning the full document objects) |
-|`resultDocuments()`    | This will return all the documents found and their data as document objects, or you can do `results(false)` which is the alias. |
+|`resultDocuments()`    | This will return all the documents found and their data as document objects, or you can do `results(false)` which is the alias. Also you are able to force sort `ASC` or `DESC` directly from document object name like `__id`,`__created_at` and `__updated_at`. Example: `resultDocuments('__id','DESC')`. (added: 1.0.12) |
 
 ### Comparison Operators:
 

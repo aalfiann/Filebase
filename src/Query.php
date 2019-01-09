@@ -176,10 +176,37 @@ class Query extends QueryLogic
     /**
     * ->resultDocuments()
     *
+    * @param string $name - Is the default document field name. Ex. __id,__created_at and __updated_at
+    * @param string $sort - Force sort the document data field in ascending or descending
+    * 
+    * @return array
     */
-    public function resultDocuments()
+    public function resultDocuments($name='',$sort='ASC')
     {
-        return parent::run()->getDocuments();
+        $list = parent::run()->getDocuments();
+        $sort = (($sort=='DESC')?SORT_DESC:SORT_ASC);
+        switch($name){
+            case '__id':
+                foreach ($list as $key => $item) {
+                    $timestamps[$key] = $item->getId();
+                }
+                array_multisort($timestamps, $sort, $list);
+                return $list;
+            case '__created_at':
+                foreach ($list as $key => $item) {
+                    $timestamps[$key] = $item->createdAt();
+                }
+                array_multisort($timestamps, $sort, $list);
+                return $list;
+            case '__updated_at':
+                foreach ($list as $key => $item) {
+                    $timestamps[$key] = $item->createdAt();
+                }
+                array_multisort($timestamps, $sort, $list);
+                return $list;
+            default:
+                return $list;
+        }
     }
 
 
