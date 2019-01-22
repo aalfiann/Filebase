@@ -175,6 +175,7 @@ class Query extends QueryLogic
 
     /**
     * ->resultDocuments()
+    * Note: Sort with query limit and offset will not sort all documents. 
     *
     * @param string $name - Is the default document field name. Ex. __id,__created_at and __updated_at
     * @param string $sort - Force sort the document data field in ascending or descending
@@ -190,20 +191,29 @@ class Query extends QueryLogic
                 foreach ($list as $key => $item) {
                     $timestamps[$key] = $item->getId();
                 }
-                array_multisort($timestamps, $sort, $list);
-                return $list;
+                if(!empty($timestamps)){
+                    array_multisort($timestamps, $sort, $list);
+                    return $list;
+                }
+                return [];
             case '__created_at':
                 foreach ($list as $key => $item) {
                     $timestamps[$key] = $item->createdAt();
                 }
-                array_multisort($timestamps, $sort, $list);
-                return $list;
+                if(!empty($timestamps)){
+                    array_multisort($timestamps, $sort, $list);
+                    return $list;
+                }
+                return [];
             case '__updated_at':
                 foreach ($list as $key => $item) {
                     $timestamps[$key] = $item->createdAt();
                 }
-                array_multisort($timestamps, $sort, $list);
-                return $list;
+                if(!empty($timestamps)){
+                    array_multisort($timestamps, $sort, $list);
+                    return $list;
+                }
+                return [];
             default:
                 return $list;
         }
