@@ -33,9 +33,9 @@ class Config
     * $cache_time
     * When should cache be cleared?
     *
-    * default (1800 seconds) 30 minutes
+    * default (60 seconds) 1 minutes
     */
-    public $cache_expires = 1800;
+    public $cache_expires = 60;
 
 
     /**
@@ -73,9 +73,9 @@ class Config
     * if true, saves the data as human readable
     * Otherwise, its difficult to understand.
     *
-    * default true
+    * default false
     */
-    public $pretty = true;
+    public $pretty = false;
 
 
     /**

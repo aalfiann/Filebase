@@ -1,10 +1,19 @@
 # Filebase
 
-[![Version](https://img.shields.io/badge/stable-1.0.14-green.svg)](https://github.com/aalfiann/filebase)
+[![Version](https://img.shields.io/badge/stable-1.0.15-green.svg)](https://github.com/aalfiann/filebase)
 [![Total Downloads](https://poser.pugx.org/aalfiann/filebase/downloads)](https://packagist.org/packages/aalfiann/filebase)
 [![License](https://poser.pugx.org/aalfiann/filebase/license)](https://github.com/aalfiann/filebase/blob/HEAD/LICENSE.md)
 
-This is forked from [filebase/Filebase](https://github.com/filebase/Filebase) and based from core version `1.0.20`, I don't contribute to original project, because the original author is too slow to release the update for security patch also I have different design plans and maybe I will refactor the source in the future release.  
+This is forked from [filebase/Filebase](https://github.com/filebase/Filebase) and based from core version `1.0.20`, I don't contribute to original project, because I have different plan which is need to refactor and may broke the original project.
+
+### What is the plan for this project ?
+- Refactoring code to achieve high performance with low memory footprint
+- Focus on optimizing data into big scale
+- Only update for security patch or critical bugs
+- New feature will follow the original project
+
+### Version number is changed
+I start to refactor [filebase/Filebase](https://github.com/filebase/Filebase) from core version `1.0.20`, then I make release again with new version number `1.0.0` 
 
 ---
 
@@ -96,8 +105,8 @@ $db = new \Filebase\Database([
     'backupLocation' => 'path/to/database/backup/dir',
     'format'         => \Filebase\Format\Json::class,
     'cache'          => true,
-    'cache_expires'  => 1800,
-    'pretty'         => true,
+    'cache_expires'  => 60,
+    'pretty'         => false,
     'safe_filename'  => true,
     'read_only'      => false,
     'validate' => [
@@ -116,8 +125,8 @@ $db = new \Filebase\Database([
 |`format`			|object		|`\Filebase\Format\Json`   |The format class used to encode/decode data				|
 |`validate`			|array		|   |Check [Validation Rules](https://github.com/aalfiann/Filebase#6-validation-optional) for more details |
 |`cache`			|bool		|true   |Stores [query](https://github.com/aalfiann/Filebase#8-queries) results into cache for faster loading.				|
-|`cache_expire`		|int		|1800   |How long caching will last (in seconds)	|
-|`pretty`	    	|bool		|true   |Store the data for human readability? Pretty Print	|
+|`cache_expires`	|int		|60     |How long caching will last (in seconds)	|
+|`pretty`	    	|bool		|false  |Store the data for human readability? Pretty Print	|
 |`safe_filename`	|bool		|true   |Automatically converts the file name to a valid name (added: 1.0.13)   |
 |`read_only`        |bool		|false  |Prevents the database from creating/modifying files or directories (added: 1.0.14)	|
 
