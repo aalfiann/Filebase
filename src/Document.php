@@ -434,6 +434,11 @@ class Document
             return $context;
         }
 
+        if ($field == '__id')
+        {
+            return $this->__id;
+        }
+
         if ($field == '__created_at')
         {
             return $this->__created_at;
