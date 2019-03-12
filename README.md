@@ -399,6 +399,12 @@ $user = $db->query()->orderBy('name', 'ASC')->first();
 // print out the user name
 echo $user['name'];
 
+// You can also order multiple columns as such (stacking)
+$orderMultiples = $db->orderBy('field1','ASC')
+                     ->orderBy('field2','DESC')
+                     ->results();
+
+
 // What about regex search? Finds emails within a field
 $users = $db->query()->where('email','REGEX','/[a-z\d._%+-]+@[a-z\d.-]+\.[a-z]{2,4}\b/i')->results();
 
@@ -409,6 +415,24 @@ $users = $db->query()->select('name,age')->where('email','LIKE','@gmail.com')->r
 // Instead of returning users, how about just count how many users are found.
 $totalUsers = $db->query()->where('email','LIKE','@gmail.com')->count();
 
+
+// You can delete all documents that match the query (BULK DELETE)
+$db->where('name','LIKE','john')->delete();
+
+// Delete all items that match query and match custom filter
+$db->where('name','LIKE','john')->delete(function($item){
+    return ($item->name == 'John' && $item->email == 'some@mail.com');
+});
+
+
+// GLOBAL VARIABLES
+
+// ability to sort the results by created at or updated at times
+$documents = $db->orderBy('__created_at', 'DESC')->results();
+$documents = $db->orderBy('__updated_at', 'DESC')->results();
+
+// search for items that match the (internal) id
+$documents = $db->where('__id', 'IN', ['id1', 'id2'])->results();
 
 ```
 
@@ -426,6 +450,7 @@ To run the query use `results()` or if you only want to return the first item us
 |`orWhere()`            | `mixed`                               | see `where()`, this uses the logical `OR` |
 |`limit()`              | `int` limit, `int` offset             | How many documents to return, and offset |
 |`orderBy()`            | `field` , `sort order`                | Order documents by a specific field and order by `ASC` or `DESC` |
+|`delete()`             | `Closure`                             | Ability to Bulk-delete all items that match |
 
 
 The below **methods execute the query** and return results *(do not try to use them together)*
@@ -436,7 +461,7 @@ The below **methods execute the query** and return results *(do not try to use t
 |`first()`              | Returns only the first document in results. |
 |`last()`               | Returns only the last document in results. |
 |`results()`            | This will return all the documents found and their data as an array. Passing the argument of `false` will be the same as `resultDocuments()` (returning the full document objects) |
-|`resultDocuments()`    | This will return all the documents found and their data as document objects, or you can do `results(false)` which is the alias. Also you are able to force sort `ASC` or `DESC` directly from document object name like `__id`,`__created_at` and `__updated_at`. Note: This force sort with query limit and offset will not sort all documents. Example to Use: `->resultDocuments('__id','DESC')`. (added: 1.0.12) |
+|`resultDocuments()`    | This will return all the documents found and their data as document objects, or you can do `results(false)` which is the alias. Also you are able to force sort `ASC` or `DESC` directly from document object name like `__id`,`__created_at` and `__updated_at`. Note: Using this force sort with `offset` will not sort all documents. Example to Use: `->resultDocuments('__id','DESC')`. (added: 1.0.12) |
 
 ### Comparison Operators:
 
