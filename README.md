@@ -1,6 +1,6 @@
 # Filebase
 
-[![Version](https://img.shields.io/badge/stable-1.0.15-green.svg)](https://github.com/aalfiann/filebase)
+[![Version](https://img.shields.io/badge/stable-1.0.16-green.svg)](https://github.com/aalfiann/filebase)
 [![Total Downloads](https://poser.pugx.org/aalfiann/filebase/downloads)](https://packagist.org/packages/aalfiann/filebase)
 [![License](https://poser.pugx.org/aalfiann/filebase/license)](https://github.com/aalfiann/filebase/blob/HEAD/LICENSE.md)
 
@@ -383,6 +383,13 @@ $usersWithGmail = $db->query()
 // or just order the results by email address
 $usersWithGmail = $db->query()
                     ->where('email','LIKE','@gmail.com')
+                    ->orderBy('email', 'ASC')
+                    ->results();
+
+// OrderBy can be applied multiple times to perform a multi-sort
+$usersWithGmail = $db->query()
+                    ->where('email','LIKE','@gmail.com')
+                    ->orderBy('last_name', 'ASC')
                     ->orderBy('email', 'ASC')
                     ->results();
 
